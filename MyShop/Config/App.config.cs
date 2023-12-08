@@ -53,7 +53,7 @@ namespace MyShop.Config
             builder.UserID = Username;
             builder.Password = Password;
             builder.TrustServerCertificate = true;
-            builder.ConnectTimeout = 3; // s
+            //builder.ConnectTimeout = 3; // s
 
             string result = builder.ToString();
             return result;

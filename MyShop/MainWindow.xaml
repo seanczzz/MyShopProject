@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="My Shop" Height="650" Width="1100"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded"        
+        Loaded="Window_Loaded"
+        Closed="Window_Closed"
         >
     <Grid x:Name="layoutContainer">
         <Grid.ColumnDefinitions>

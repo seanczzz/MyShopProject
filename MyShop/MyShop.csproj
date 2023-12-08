@@ -36,9 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BUS\" />
-    <Folder Include="DAO\" />
-    <Folder Include="DTO\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 

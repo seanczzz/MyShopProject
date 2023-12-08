@@ -27,14 +27,20 @@ namespace MyShop
         }
 
         Login login;
+        Dashboard dashboard;
+        Button[] buttons;
+        //Dashboard dashboard;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             login = new Login();
+
             this.Opacity = 0.3;
             login.Owner = this;
             if (login.ShowDialog() == true )
             {
                 this.Opacity = 1;
+                buttons = new Button[] { dashboardButton, categoriesButton, productButton, orderButton, statsButton, configButton };
+                
             }
             else
             {
@@ -42,9 +48,20 @@ namespace MyShop
             }
         }
 
+        private void changeButtonColor(Button b)
+        {
+            foreach (var button in buttons)
+            {
+                button.Background = (Brush)Application.Current.Resources["MyPinkGradient"];
+            }
+            b.Background = (Brush)Application.Current.Resources["MyRedGradient"];
+        }
+
         private void dashboardButton_Click(object sender, RoutedEventArgs e)
         {
-
+            changeButtonColor(dashboardButton);
+            dashboard = new Dashboard();
+            pageNavigation.NavigationService.Navigate(dashboard);
         }
 
         private void categoriesButton_Click(object sender, RoutedEventArgs e)
@@ -70,6 +87,11 @@ namespace MyShop
         private void configButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            DB.Instance.Connection?.Close();
         }
     }
 }
