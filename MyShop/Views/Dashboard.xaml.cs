@@ -1,8 +1,10 @@
 ﻿using MyShop.BUS;
 using MyShop.Config;
 using MyShop.DTO;
+using MyShop.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +30,9 @@ namespace MyShop.Views
         public int weekOrder { get; set; } = 0;
         public int monthOrder { get; set; } = 0;
 
-        List<Phone>? phonesOutOfStock = null;
-        PhoneBUS _phoneBUS = new PhoneBUS();
-        OrderBUS _orderBUS = new OrderBUS();
+        BindingList<Phone>? phonesOutOfStock = null;
+        PhoneBUS phoneBUS = new PhoneBUS();
+        OrderBUS orderBUS = new OrderBUS();
 
         public Dashboard()
         {
@@ -39,10 +41,15 @@ namespace MyShop.Views
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            totalPhone = _phoneBUS.GetTotalPhone();
-            weekOrder = _orderBUS.getOrderCountByWeek();
-            monthOrder = _orderBUS.getOrderCountByMonth();
-            phonesOutOfStock = _phoneBUS.getTopFiveOutOfStock();
+            totalPhone = phoneBUS.GetTotalPhone();
+            weekOrder = orderBUS.getOrderCountByWeek();
+            monthOrder = orderBUS.getOrderCountByMonth();
+
+            phonesOutOfStock = new BindingList<Phone>();
+            foreach (Phone phone in phoneBUS.getTopFiveOutOfStock()) {
+                phonesOutOfStock.Add(phone);
+            }
+
             PhoneDataGrid.ItemsSource = phonesOutOfStock;
 
             DataContext = this;
@@ -51,12 +58,45 @@ namespace MyShop.Views
 
         private void AddStockButton_Click(object sender, RoutedEventArgs e)
         {
+            var row = GetParent<DataGridRow>((Button)sender);
+            int index = PhoneDataGrid.Items.IndexOf(row.Item);
+            if (index != -1)
+            {
+                Phone p = phonesOutOfStock![index];
+                var screen = new AddStock(p);
+                var result = screen.ShowDialog();
+                if (result == true)
+                {
+                    try
+                    {
+                        var newPhone = screen.newPhone;
+                        phoneBUS.updatePhone(p.ID, newPhone);
 
+                        // reset top 5 
+                        int i = 0;
+                        foreach (Phone phone in phoneBUS.getTopFiveOutOfStock())
+                        {
+                            phone.CopyProperties(phonesOutOfStock[i]);
+                            i++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
 
         private void PhoneDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private TargetType GetParent<TargetType>(DependencyObject o) where TargetType : DependencyObject
+        {
+            if (o == null || o is TargetType) return (TargetType)o;
+            return GetParent<TargetType>(VisualTreeHelper.GetParent(o));
         }
     }
 }
