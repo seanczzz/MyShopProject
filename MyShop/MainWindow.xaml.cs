@@ -28,6 +28,7 @@ namespace MyShop
 
         Login login;
         Dashboard dashboard;
+        ManageCategory manageCategories;
         Button[] buttons;
         //Dashboard dashboard;
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -66,7 +67,9 @@ namespace MyShop
 
         private void categoriesButton_Click(object sender, RoutedEventArgs e)
         {
-
+            changeButtonColor(categoriesButton);
+            manageCategories = new ManageCategory();
+            pageNavigation.NavigationService.Navigate(manageCategories);
         }
 
         private void productButton_Click(object sender, RoutedEventArgs e)

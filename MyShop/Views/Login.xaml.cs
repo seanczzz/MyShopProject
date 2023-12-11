@@ -40,15 +40,18 @@ namespace MyShop.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string password = AppConfig.GetPassword();
-            string username = AppConfig.GetValue(AppConfig.Username);
+            string password, username;
             try
             {
+                password = AppConfig.GetPassword();
+                username = AppConfig.GetValue(AppConfig.Username);
                 PasswordBox.Password = password;
                 UserNameBox.Text = username;
             }
             catch {
-                
+                password = AppConfig.GetValue("Password");
+                username = AppConfig.GetValue("Username");
+
                 AppConfig.SetPassword(password);
                 AppConfig.SetValue(AppConfig.Username, username);
             }
