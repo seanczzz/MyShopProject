@@ -27,8 +27,9 @@ namespace MyShop
         }
 
         Login login;
-        Dashboard dashboard;
-        ManageCategory manageCategories;
+        Dashboard? dashboard = null;
+        ManageCategory? manageCategories = null;
+        ManageProduct? manageProducts = null;
         Button[] buttons;
         //Dashboard dashboard;
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +54,7 @@ namespace MyShop
         {
             foreach (var button in buttons)
             {
+                
                 button.Background = (Brush)Application.Current.Resources["MyPinkGradient"];
             }
             b.Background = (Brush)Application.Current.Resources["MyRedGradient"];
@@ -61,20 +63,34 @@ namespace MyShop
         private void dashboardButton_Click(object sender, RoutedEventArgs e)
         {
             changeButtonColor(dashboardButton);
-            dashboard = new Dashboard();
+
+            if (dashboard == null)
+            {
+                dashboard = new Dashboard();
+            }
             pageNavigation.NavigationService.Navigate(dashboard);
         }
 
         private void categoriesButton_Click(object sender, RoutedEventArgs e)
         {
             changeButtonColor(categoriesButton);
-            manageCategories = new ManageCategory();
+
+            if (manageCategories == null)
+            {
+                manageCategories = new ManageCategory();
+            }
             pageNavigation.NavigationService.Navigate(manageCategories);
         }
 
         private void productButton_Click(object sender, RoutedEventArgs e)
         {
+            changeButtonColor(productButton);
 
+            if (manageProducts == null)
+            {
+                manageProducts = new ManageProduct();
+            }
+            pageNavigation.NavigationService.Navigate(manageProducts);
         }
 
         private void orderButton_Click(object sender, RoutedEventArgs e)

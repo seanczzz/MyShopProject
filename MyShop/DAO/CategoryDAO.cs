@@ -75,6 +75,8 @@ namespace MyShop.DAO
                 sql = @"INSERT INTO Category (CatName) VALUES 
                         (@CatName)";
             }
+
+            sql += "select ident_current('Category');";
             SqlCommand sqlCommand = new SqlCommand(sql, DB.Instance.Connection);
 
             sqlCommand.Parameters.AddWithValue("@CatName", category.CatName);
@@ -92,13 +94,7 @@ namespace MyShop.DAO
 
             try
             {
-                sqlCommand.ExecuteNonQuery();
-                sql = "select id from Category where Catname=@CatName";
-                sqlCommand = new SqlCommand(sql, DB.Instance.Connection);
-                sqlCommand.Parameters.AddWithValue("@CatName", category.CatName);
-                var reader = sqlCommand.ExecuteReader();
-                reader.Read();
-                int id = (int)reader["ID"];
+                int id = (int)((decimal)sqlCommand.ExecuteScalar());
                 category.ID = id;
             }
             catch (Exception ex)

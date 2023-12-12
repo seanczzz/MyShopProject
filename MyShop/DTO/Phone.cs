@@ -18,6 +18,7 @@ namespace MyShop.DTO
         public string Description { get; set; } = "";
         public int BoughtPrice { get; set; }
         public int SoldPrice { get; set; }
+        public int CatID { get; set; }
         public Category Category { get; set; }
         public DateTime UploadDate { get; set; }
         public BitmapImage Avatar { get; set; }
@@ -29,20 +30,7 @@ namespace MyShop.DTO
             return MemberwiseClone();
         }
 
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
 
-            return false;
-        }
-
-        private string catName;
-
-        public string CatName { get => catName; set => SetProperty(ref catName, value); }
+       
     }
 }

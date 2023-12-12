@@ -2,6 +2,7 @@
 using MyShop.DTO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,22 @@ namespace MyShop.BUS
             {
                 phoneDAO.updatePhone(ID, phone);
             }
+        }
+
+        public List<Phone> getAllPhones()
+        {
+            return phoneDAO.getAllPhones();
+        }
+
+        public void AddPhone(Phone phone)
+        {
+            phone.UploadDate = DateTime.Now.Date;
+            phoneDAO.InsertNewPhone(phone);
+        }
+
+        public void DeletePhone(int phoneID)
+        {
+            phoneDAO.DeletePhone(phoneID);
         }
     }
 
