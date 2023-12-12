@@ -25,7 +25,7 @@ namespace MyShop.Views
         public EditPhone(Phone phone)
         {
             InitializeComponent();
-            Phone updatedPhone = (Phone)phone.Clone();
+            updatedPhone = (Phone)phone.Clone();
             DataContext = updatedPhone;
         }
 

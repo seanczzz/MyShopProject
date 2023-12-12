@@ -1,6 +1,7 @@
 ﻿using MyShop.BUS;
 using MyShop.Config;
 using MyShop.DTO;
+using MyShop.Utils;
 using MyShop.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -140,37 +141,24 @@ namespace MyShop.Views
         }
         private void editMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //var p = (Phone)phonesListView.SelectedItem;
-            //var screen = new EditPhone(p);
-            //var result = screen.ShowDialog();
-            //if (result == true)
-            //{
-            //    var info = screen.EditedPhone;
-            //    p.PhoneName = info.PhoneName;
-            //    p.Manufacturer = info.Manufacturer;
-            //    p.SoldPrice = info.SoldPrice;
-            //    p.BoughtPrice = info.BoughtPrice;
-            //    p.Description = info.Description;
-            //    p.Avatar = info.Avatar;
-            //    p.Stock = info.Stock;
-            //    try
-            //    {
-            //        phoneBus.updatePhone(p.ID, p);
-            //        searchTextBox_TextChanged(sender, null);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Debug.WriteLine("Exception here");
-            //        MessageBox.Show(screen, ex.Message);
-            //    }
+            int index = phonesListView.SelectedIndex;
 
-            //    //_vm.Phones = _categories[i].Phones;
-            //    //_vm.SelectedPhones = _vm.Phones
-            //    //    .Skip((_currentPage - 1) * _rowsPerPage)
-            //    //    .Take(_rowsPerPage).ToList();
-
-            //    //phonesListView.ItemsSource = _vm.SelectedPhones;
-            //}
+            var screen = new EditPhone(vm.PhonesOnPage[index]);
+            var result = screen.ShowDialog();
+            if (result == true)
+            {
+                Phone updatedPhone = screen.updatedPhone;
+                try
+                {
+                    phoneBus.updatePhone(updatedPhone.ID, updatedPhone);
+                    updatedPhone.CopyProperties(vm.PhonesOnPage[index]);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception here");
+                    MessageBox.Show(screen, ex.Message);
+                }
+            }
         }
 
         private void deleteMenuItem_Click(object sender, RoutedEventArgs e) 
