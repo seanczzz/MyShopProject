@@ -216,13 +216,95 @@ namespace MyShop.Views
             }
         }
 
-        private void ImportButton_Click(object sender, RoutedEventArgs e) { }
+        private void ImportButton_Click(object sender, RoutedEventArgs e) 
+        {
+        
+        }
 
-        private void FilterButton_Click(object sender, RoutedEventArgs e) { }
+        private void FilterButton_Click(object sender, RoutedEventArgs e) 
+        {
+            float fromPrice = float.Parse(fromTextbox.Text);
+            float toPrice = float.Parse(toTextbox.Text);
+            if (fromPrice >= 0 && toPrice > 0 && fromPrice < toPrice)
+            {
+                currentPage = 1;
+                nextButton.IsEnabled = true;
+                previousButton.IsEnabled = false;
+
+                vm.PhonesOnPage.Clear();
+                BindingList<Phone> phones = new BindingList<Phone>();
+                foreach (Phone phone in vm.Phones)
+                {
+                    if (phone.SoldPrice >= fromPrice && phone.SoldPrice <= toPrice)
+                    {
+                        phones.Add(phone);
+                    }
+                }
+
+                if (phones.Count <= 0)
+                {
+                    MessageBox.Show("Product not found!");
+                    return;
+                }
+                vm.PhonesOnPage = new BindingList<Phone>(phones
+                                .Skip((currentPage - 1) * itemsPerPage)
+                                .Take(itemsPerPage).ToList());
+
+                currentPage = 1;
+                totalItems = phones.Count;
+                totalPages = (totalItems / itemsPerPage) + (totalItems % itemsPerPage == 0 ? 0 : 1);
+                phonesListView.ItemsSource = vm.PhonesOnPage;
+                currentPagingTextBlock.Text = $"{currentPage}/{totalPages}";
+
+                if (totalPages <= 1)
+                {
+                    nextButton.IsEnabled = false;
+                }
+            }
+            else
+            {
+
+                MessageBox.Show("Product not found!");
+            }
+        }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string search_text = searchTextBox.Text;
+            if (search_text.Length > 0)
+            {
+                currentPage = 1;
+                nextButton.IsEnabled = true;
+                previousButton.IsEnabled = false;
 
+                vm.PhonesOnPage.Clear();
+                BindingList<Phone> phones = new BindingList<Phone>();
+                foreach (Phone phone in vm.Phones)
+                {
+                    if (phone.PhoneName.ToLower().Contains(search_text.ToLower()))
+                    {
+                        phones.Add(phone);
+                    }
+                }
+
+                vm.PhonesOnPage = new BindingList<Phone>(phones
+                                .Skip((currentPage - 1) * itemsPerPage)
+                                .Take(itemsPerPage).ToList());
+
+                currentPage = 1;
+                totalItems = phones.Count;
+                totalPages = totalItems / itemsPerPage + (totalItems % itemsPerPage == 0 ? 0 : 1);
+                phonesListView.ItemsSource = vm.PhonesOnPage;
+                currentPagingTextBlock.Text = $"{currentPage}/{totalPages}";
+                if (totalPages <= 1)
+                {
+                    nextButton.IsEnabled = false;
+                }
+            }
+            else
+            {
+                loadPhones();
+            }
         }
 
         private void categoriesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
