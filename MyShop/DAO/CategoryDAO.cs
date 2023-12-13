@@ -167,5 +167,21 @@ namespace MyShop.DAO
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public int isExistCategory(string categoryName)
+        {
+            string sql = "select ID from Category where CatName = @CatName";
+            SqlCommand command = new SqlCommand(sql, DB.Instance.Connection);
+            command.Parameters.AddWithValue("@CatName", categoryName);
+
+            var reader = command.ExecuteReader();
+            int ID = 0;
+            while (reader.Read())
+            {
+                ID = (int)reader["ID"];
+            }
+            reader.Close();
+            return ID;
+        }
     }
 }

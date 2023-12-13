@@ -1,4 +1,8 @@
-﻿using MyShop.BUS;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Win32;
+using MyShop.BUS;
 using MyShop.Config;
 using MyShop.DTO;
 using MyShop.Utils;
@@ -19,6 +23,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Category = MyShop.DTO.Category;
+using Page = System.Windows.Controls.Page;
 
 namespace MyShop.Views
 {
@@ -124,8 +130,8 @@ namespace MyShop.Views
             {
                 try
                 {
-                    newPhone.CatID = categoryIndex + 1;
                     newPhone.Category = categories![categoryIndex];
+                    newPhone.CatID = newPhone.Category.ID;
                     phoneBus.AddPhone(newPhone);
                     categories![categoryIndex].Phones.Add(newPhone);
                     if (i == categoryIndex)
@@ -216,9 +222,122 @@ namespace MyShop.Views
             }
         }
 
+        private string getStringValueFromCell(string coord, SharedStringTablePart stringTable, IEnumerable<Cell> cells)
+        {
+            Cell nameCell = cells.FirstOrDefault(
+                        c => c?.CellReference == $"{coord}"
+                    )!;
+
+            if (nameCell == null) return "";
+
+            string stringId = nameCell!.InnerText;
+            string value = stringTable.SharedStringTable
+                    .ElementAt(int.Parse(stringId))
+                    .InnerText;
+            return value;
+        }
+        private int getIntValueFromCell(string coord, SharedStringTablePart stringTable, IEnumerable<Cell> cells)
+        {
+            Cell nameCell = cells.FirstOrDefault(
+                        c => c?.CellReference == $"{coord}"
+                    )!;
+
+            if (nameCell == null) return -1;
+            int value = Int32.Parse(nameCell!.InnerText);
+            return value;
+        }
+        DateTime getDateTimeValueFromCell(string coord, SharedStringTablePart stringTable, IEnumerable<Cell> cells)
+        {
+            Cell nameCell = cells.FirstOrDefault(
+                        c => c?.CellReference == $"{coord}"
+                    )!;
+
+            if (nameCell == null) return DateTime.Now;
+            DateTime value = DateTime.Parse(nameCell!.InnerText);
+            return value;
+        }
         private void ImportButton_Click(object sender, RoutedEventArgs e) 
         {
-        
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var screen = new OpenFileDialog();
+
+            if (screen.ShowDialog() == false) return;
+
+            string filename = screen.FileName;
+            var document = SpreadsheetDocument.Open(filename, false);
+            var wbPart = document.WorkbookPart!;
+            var sheets = wbPart.Workbook.Descendants<Sheet>()!;
+
+            var categoryBUS = new CategoryBUS();
+            foreach (var sheet in sheets)
+            {
+                var wsPart = (WorksheetPart)(wbPart!.GetPartById(sheet.Id!));
+                var stringTable = wbPart
+                        .GetPartsOfType<SharedStringTablePart>()
+                        .FirstOrDefault()!;
+                var cells = wsPart.Worksheet.Descendants<Cell>();
+
+
+                Category category = new Category()
+                {
+                    CatName = sheet.Name,
+                    Phones = new BindingList<Phone>()
+                };
+                bool exist = categoryBUS.InsertCategory(category);
+                if (!exist)
+                {
+                    if (categories == null) categories = new BindingList<Category>();
+                    categories.Add(category);
+                }
+
+                int row = 4;
+                Cell idCell;
+
+                do
+                {
+                    idCell = cells.FirstOrDefault(
+                    c => c?.CellReference == $"B{row}"
+                    )!;
+
+                    if (idCell?.InnerText.Length > 0)
+                    {
+                        string phoneName = getStringValueFromCell($"C{row}", stringTable, cells);
+                        string manufacturer = getStringValueFromCell($"D{row}", stringTable, cells);
+                        int boughtPrice = getIntValueFromCell($"E{row}", stringTable, cells);
+                        int soldPrice = getIntValueFromCell($"F{row}", stringTable, cells);
+                        int stock = getIntValueFromCell($"G{row}", stringTable, cells);
+                        string description = getStringValueFromCell($"H{row}", stringTable, cells);
+                        DateTime uploadDate = getDateTimeValueFromCell($"I{row}", stringTable, cells);
+                        string avatar = getStringValueFromCell($"J{row}", stringTable, cells);
+
+                        Phone importedPhone = new()
+                        {
+                            PhoneName = phoneName,
+                            Manufacturer = manufacturer,
+                            BoughtPrice = boughtPrice,
+                            SoldPrice = soldPrice,
+                            Stock = stock,
+                            Description = description,
+                            UploadDate = uploadDate,
+                            Avatar = new BitmapImage(new Uri(avatar, UriKind.Absolute)),
+                            CatID = category.ID
+                        };
+
+                        phoneBus.AddPhone(importedPhone);
+                        foreach (var cat in categories!)
+                        {
+                            if (cat.ID == importedPhone.CatID)
+                            {
+                                cat.Phones.Add(importedPhone);
+                            }
+                    }
+                    }
+                    row++;
+                } while (idCell?.InnerText.Length > 0);
+            }
+
+            loadPhones();
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e) 

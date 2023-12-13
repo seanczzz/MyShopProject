@@ -23,9 +23,20 @@ namespace MyShop.BUS
             return categoryDAO.getAllCategories();
         }
 
-        public void InsertCategory(Category category)
+        public bool InsertCategory(Category category)
         {
-            categoryDAO.InsertCategory(category);
+            bool exist = false;
+            int ID = categoryDAO.isExistCategory(category.CatName!);
+            if (ID > 0)
+            {
+                category.ID = ID;
+                exist = true;
+            }
+            else
+            {
+                categoryDAO.InsertCategory(category);
+            }
+            return exist;
         }
 
         public void DeleteCategory(int id) { 
