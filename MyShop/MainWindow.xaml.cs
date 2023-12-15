@@ -30,6 +30,7 @@ namespace MyShop
         Dashboard? dashboard = null;
         ManageCategory? manageCategories = null;
         ManageProduct? manageProducts = null;
+        ManageOrder? manageOrders = null;
         Button[] buttons;
         //Dashboard dashboard;
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -95,7 +96,13 @@ namespace MyShop
 
         private void orderButton_Click(object sender, RoutedEventArgs e)
         {
+            changeButtonColor(orderButton);
 
+            if (manageOrders == null)
+            {
+                manageOrders = new ManageOrder();
+            }
+            pageNavigation.NavigationService.Navigate(manageOrders);
         }
 
         private void statsButton_Click(object sender, RoutedEventArgs e)

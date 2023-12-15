@@ -25,6 +25,10 @@ namespace MyShop.BUS
             return phoneDAO.getTotalPhone();
         }
 
+        public Phone getPhoneByID(int id)
+        {
+            return phoneDAO.getPhoneByID(id);
+        }
         public List<Phone> getTopFiveOutOfStock()
         {
             return phoneDAO.getTopFiveOutOfStock();

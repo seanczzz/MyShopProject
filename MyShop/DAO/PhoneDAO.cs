@@ -109,6 +109,57 @@ namespace MyShop.DAO
             }
         }
 
+        public Phone getPhoneByID(int id)
+        {
+            string sql = "select * from Phone WHERE ID = @phoneID";
+            var command = new SqlCommand(sql, DB.Instance.Connection);
+
+            command.Parameters.AddWithValue("@phoneID", id);
+
+            var reader = command.ExecuteReader();
+
+            Phone? phone = null;
+            if (reader.Read())
+            {
+                int ID = (int)reader["ID"];
+                string PhoneName = (String)reader["PhoneName"];
+                string Manufacturer = (String)reader["Manufacturer"];
+
+                int SoldPrice = (int)(decimal)reader["SoldPrice"];
+                int Stock = (int)reader["Stock"];
+
+                phone = new Phone()
+                {
+                    ID = ID,
+                    PhoneName = PhoneName,
+                    Manufacturer = Manufacturer,
+                    SoldPrice = SoldPrice,
+                    Stock = Stock,
+                };
+
+                byte[] byteAvatar = new byte[5];
+                if (reader["Avatar"] != System.DBNull.Value)
+                {
+
+                    byteAvatar = (byte[])reader["Avatar"];
+
+                    using (MemoryStream ms = new MemoryStream(byteAvatar))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = ms;
+                        image.EndInit();
+                        image.Freeze();
+                        phone.Avatar = image;
+                    }
+                }
+            }
+            reader.Close();
+            return phone;
+        }
         public List<Phone> getAllPhones()
         {
             List<Phone> result = new List<Phone>();
