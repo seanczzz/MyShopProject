@@ -13,8 +13,22 @@ using System.Windows.Media.Imaging;
 
 namespace MyShop.DAO
 {
-    internal class CategoryDAO
+    public class CategoryDAO
     {
+        private static CategoryDAO? _instance = null;
+
+        public static CategoryDAO Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CategoryDAO();
+                }
+
+                return _instance;
+            }
+        }
         public BindingList<Category> getAllCategories()
         {
             BindingList<Category> result = new BindingList<Category>();

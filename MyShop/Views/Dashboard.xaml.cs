@@ -31,9 +31,6 @@ namespace MyShop.Views
         public int monthOrder { get; set; } = 0;
 
         BindingList<Phone>? phonesOutOfStock = null;
-        PhoneBUS phoneBUS = new PhoneBUS();
-        OrderBUS orderBUS = new OrderBUS();
-
         public Dashboard()
         {
             InitializeComponent();
@@ -41,12 +38,12 @@ namespace MyShop.Views
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            totalPhone = phoneBUS.GetTotalPhone();
-            weekOrder = orderBUS.getOrderCountByWeek();
-            monthOrder = orderBUS.getOrderCountByMonth();
+            totalPhone = PhoneBUS.Instance.GetTotalPhone();
+            weekOrder = OrderBUS.Instance.getOrderCountByWeek();
+            monthOrder = OrderBUS.Instance.getOrderCountByMonth();
 
             phonesOutOfStock = new BindingList<Phone>();
-            foreach (Phone phone in phoneBUS.getTopFiveOutOfStock()) {
+            foreach (Phone phone in PhoneBUS.Instance.getTopFiveOutOfStock()) {
                 phonesOutOfStock.Add(phone);
             }
 
@@ -70,11 +67,11 @@ namespace MyShop.Views
                     try
                     {
                         var newPhone = screen.newPhone;
-                        phoneBUS.updatePhone(p.ID, newPhone);
+                        PhoneBUS.Instance.updatePhone(p.ID, newPhone);
 
                         // reset top 5 
                         int i = 0;
-                        foreach (Phone phone in phoneBUS.getTopFiveOutOfStock())
+                        foreach (Phone phone in PhoneBUS.Instance.getTopFiveOutOfStock())
                         {
                             phone.CopyProperties(phonesOutOfStock[i]);
                             i++;

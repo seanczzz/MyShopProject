@@ -12,49 +12,57 @@ using Order = MyShop.DTO.Order;
 
 namespace MyShop.BUS
 {
-    internal class OrderBUS
+    public class OrderBUS
     {
-        private OrderDAO orderDAO;
+        private static OrderBUS? _instance = null;
 
-        public OrderBUS()
+        public static OrderBUS Instance
         {
-            orderDAO = new OrderDAO();
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new OrderBUS();
+                }
+
+                return _instance;
+            }
         }
         public int getOrderCountByWeek()
         {
-            return orderDAO.getOrderCountByWeek();
+            return OrderDAO.Instance.getOrderCountByWeek();
         }
 
         public int getOrderCountByMonth()
         {
-            return orderDAO.getOrderCountByMonth();
+            return OrderDAO.Instance.getOrderCountByMonth();
         }
 
         public BindingList<Order> GetAllOrdersByDate(DateTime FromDate, DateTime ToDate)
         {
-            return orderDAO.GetAllOrdersByDate(FromDate, ToDate);
+            return OrderDAO.Instance.GetAllOrdersByDate(FromDate, ToDate);
         }
 
         public void AddOrderDetail(OrderDetails orderDetails)
         {
-            orderDAO.AddOrderDetail(orderDetails);
+            OrderDAO.Instance.AddOrderDetail(orderDetails);
         }
 
         public void AddOrder(Order order)
         {
-            orderDAO.AddOrder(order);
+            OrderDAO.Instance.AddOrder(order);
         }
 
         public void DeleteOrderDetail(OrderDetails detail)
         {
-            orderDAO.DeleteOrderDetail(detail);
+            OrderDAO.Instance.DeleteOrderDetail(detail);
         }
 
         public void UpdateOrderDetail(int oldPhoneID, OrderDetails detail)
         {
             if (detail.Quantity >= 0)
             {
-                orderDAO.UpdateOrderDetail(oldPhoneID, detail);
+                OrderDAO.Instance.UpdateOrderDetail(oldPhoneID, detail);
             }
             else
             {
@@ -64,14 +72,14 @@ namespace MyShop.BUS
 
         public void UpdateOrder(Order order)
         {
-            orderDAO.UpdateOrder(order);
+            OrderDAO.Instance.UpdateOrder(order);
         }
 
         public void DeleteOrder(int id)
         {
             if (id > -1)
             {
-                orderDAO.DeleteOrder(id);
+                OrderDAO.Instance.DeleteOrder(id);
             }
         }
     }

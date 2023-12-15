@@ -26,8 +26,6 @@ namespace MyShop.Views
     /// </summary>
     public partial class ManageOrder : Page
     {
-        private OrderBUS orderBUS;
-
         OrderViewModel vm;
         DateTime FromDate;
         DateTime ToDate;
@@ -44,8 +42,7 @@ namespace MyShop.Views
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             vm = new OrderViewModel();
-            orderBUS = new OrderBUS();
-
+            
             FromDate = DateTime.Parse("1/1/1970");
             ToDate = DateTime.MaxValue;
 
@@ -57,7 +54,7 @@ namespace MyShop.Views
 
         void LoadOrders()
         {
-            vm.Orders = orderBUS.GetAllOrdersByDate(FromDate, ToDate);
+            vm.Orders = OrderBUS.Instance.GetAllOrdersByDate(FromDate, ToDate);
             vm.OrdersOnPage = new BindingList<Order>(vm.Orders.Skip((currentPage - 1) * rowsPerPage)
                                                         .Take(rowsPerPage).ToList());
 
@@ -98,7 +95,7 @@ namespace MyShop.Views
                 if (result == true)
                 {
                     screen.myOrder.CopyProperties(vm.OrdersOnPage[index]);
-                    orderBUS.UpdateOrder(vm.OrdersOnPage[index]);
+                    OrderBUS.Instance.UpdateOrder(vm.OrdersOnPage[index]);
                 }
             }
         }
@@ -113,7 +110,7 @@ namespace MyShop.Views
                 var res = MessageBox.Show($"Are you sure to delete this order: {order.ID} - {order.CustomerName}?", "Delete order", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (res == MessageBoxResult.Yes)
                 {
-                    orderBUS.DeleteOrder(order.ID);
+                    OrderBUS.Instance.DeleteOrder(order.ID);
                     vm.OrdersOnPage.RemoveAt(i);
                     if (vm.OrdersOnPage.Count == 0)
                     {
@@ -171,7 +168,7 @@ namespace MyShop.Views
                 if (result == true)
                 {
                     screen.myOrder.CopyProperties(vm.OrdersOnPage[index]);
-                    orderBUS.UpdateOrder(vm.OrdersOnPage[index]);
+                    OrderBUS.Instance.UpdateOrder(vm.OrdersOnPage[index]);
                 }
             }
         }

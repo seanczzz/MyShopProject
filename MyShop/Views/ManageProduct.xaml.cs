@@ -33,7 +33,6 @@ namespace MyShop.Views
     /// </summary>
     public partial class ManageProduct : Page
     {
-        private PhoneBUS phoneBus = new PhoneBUS();
         PhoneViewModel vm = new PhoneViewModel();
         static BindingList<Category>? categories = null;
         int totalItems = 0;
@@ -49,15 +48,13 @@ namespace MyShop.Views
             nextButton.IsEnabled = false;
             //currentPage = 0;
             //totalPages = 0;
-            var categoryBUS = new CategoryBUS();
-            var phoneBUS = new PhoneBUS();
             if (categories == null)
             {
-                categories = categoryBUS.getAllCategories();
+                categories = CategoryBUS.Instance.getAllCategories();
             }
             categoriesListView.ItemsSource = categories;
 
-            var allPhones = phoneBUS.getAllPhones();
+            var allPhones = PhoneBUS.Instance.getAllPhones();
 
             foreach (var category in categories)
             {
@@ -132,7 +129,7 @@ namespace MyShop.Views
                 {
                     newPhone.Category = categories![categoryIndex];
                     newPhone.CatID = newPhone.Category.ID;
-                    phoneBus.AddPhone(newPhone);
+                    PhoneBUS.Instance.AddPhone(newPhone);
                     categories![categoryIndex].Phones.Add(newPhone);
                     if (i == categoryIndex)
                     {
@@ -156,7 +153,7 @@ namespace MyShop.Views
                 Phone updatedPhone = screen.updatedPhone;
                 try
                 {
-                    phoneBus.updatePhone(updatedPhone.ID, updatedPhone);
+                    PhoneBUS.Instance.updatePhone(updatedPhone.ID, updatedPhone);
                     updatedPhone.CopyProperties(vm.PhonesOnPage[index]);
                 }
                 catch (Exception ex)
@@ -177,7 +174,7 @@ namespace MyShop.Views
 
             if (wannaDelete == MessageBoxResult.Yes)
             {
-                phoneBus.DeletePhone(selectedPhone.ID);
+                PhoneBUS.Instance.DeletePhone(selectedPhone.ID);
                 vm.Phones.RemoveAt((currentPage - 1) * itemsPerPage + index);
                 vm.PhonesOnPage.RemoveAt(index);
                 if (vm.PhonesOnPage.Count == 0)
@@ -269,7 +266,6 @@ namespace MyShop.Views
             var wbPart = document.WorkbookPart!;
             var sheets = wbPart.Workbook.Descendants<Sheet>()!;
 
-            var categoryBUS = new CategoryBUS();
             foreach (var sheet in sheets)
             {
                 var wsPart = (WorksheetPart)(wbPart!.GetPartById(sheet.Id!));
@@ -284,7 +280,7 @@ namespace MyShop.Views
                     CatName = sheet.Name,
                     Phones = new BindingList<Phone>()
                 };
-                bool exist = categoryBUS.InsertCategory(category);
+                bool exist = CategoryBUS.Instance.InsertCategory(category);
                 if (!exist)
                 {
                     if (categories == null) categories = new BindingList<Category>();
@@ -324,7 +320,7 @@ namespace MyShop.Views
                             CatID = category.ID
                         };
 
-                        phoneBus.AddPhone(importedPhone);
+                        PhoneBUS.Instance.AddPhone(importedPhone);
                         foreach (var cat in categories!)
                         {
                             if (cat.ID == importedPhone.CatID)

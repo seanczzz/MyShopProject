@@ -10,23 +10,31 @@ using System.Windows.Data;
 
 namespace MyShop.BUS
 {
-    internal class CategoryBUS
+    public class CategoryBUS
     {
-        private CategoryDAO categoryDAO;
-        public CategoryBUS()
-        {
-            categoryDAO = new CategoryDAO();
-        }
+        private static CategoryBUS? _instance = null;
 
+        public static CategoryBUS Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CategoryBUS();
+                }
+
+                return _instance;
+            }
+        }
         public BindingList<Category> getAllCategories()
         {
-            return categoryDAO.getAllCategories();
+            return CategoryDAO.Instance.getAllCategories();
         }
 
         public bool InsertCategory(Category category)
         {
             bool exist = false;
-            int ID = categoryDAO.isExistCategory(category.CatName!);
+            int ID = CategoryDAO.Instance.isExistCategory(category.CatName!);
             if (ID > 0)
             {
                 category.ID = ID;
@@ -34,18 +42,18 @@ namespace MyShop.BUS
             }
             else
             {
-                categoryDAO.InsertCategory(category);
+                CategoryDAO.Instance.InsertCategory(category);
             }
             return exist;
         }
 
-        public void DeleteCategory(int id) { 
-            categoryDAO.DeleteCategory(id);
+        public void DeleteCategory(int id) {
+            CategoryDAO.Instance.DeleteCategory(id);
         }
 
         public void UpdateCategory(Category category)
         {
-           categoryDAO.updateCategory(category);
+            CategoryDAO.Instance.updateCategory(category);
         }
     }
 }

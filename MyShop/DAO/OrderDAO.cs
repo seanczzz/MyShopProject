@@ -18,8 +18,22 @@ using Order = MyShop.DTO.Order;
 
 namespace MyShop.DAO
 {
-    internal class OrderDAO
+    public class OrderDAO
     {
+        private static OrderDAO? _instance = null;
+
+        public static OrderDAO Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new OrderDAO();
+                }
+
+                return _instance;
+            }
+        }
         public int getOrderCountByWeek()
         {
             string sql = "select count(*) as week from Orders where datediff(day, OrderDate, GETDATE()) < 7";
@@ -64,7 +78,6 @@ namespace MyShop.DAO
 
             var result = new BindingList<OrderDetails>();
 
-            var phoneBUS = new PhoneBUS();
             while (reader.Read())
             {
                 var OrderID = reader.GetInt32("OrderID");

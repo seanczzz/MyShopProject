@@ -26,7 +26,6 @@ namespace MyShop.Views
     public partial class ManageOrderDetails : Window
     {
         public Order myOrder { get; set; }
-        private OrderBUS orderBUS;
         private bool isNewOrder = false;
         int currentOrderDetailIndex;
 
@@ -35,7 +34,6 @@ namespace MyShop.Views
         public ManageOrderDetails(Order order, bool isAddNewOrder = false)
         {
             InitializeComponent();
-            orderBUS = new OrderBUS();
             myOrder = (Order)order.Clone();
             
             orderDetails = new OrderDetails();
@@ -110,13 +108,13 @@ namespace MyShop.Views
                     {
                         if (screen.newOrderDetails.Quantity == myOrder.OrderDetailsList[i].Quantity) return;
 
-                        orderBUS.UpdateOrderDetail(myOrder.OrderDetailsList[i].Phone.ID, myOrder.OrderDetailsList[i]);
+                        OrderBUS.Instance.UpdateOrderDetail(myOrder.OrderDetailsList[i].Phone.ID, myOrder.OrderDetailsList[i]);
                     }
                     if (!IsAlreadyInPhoneList(screen.newOrderDetails.Phone))
                     {
                         int oldPhoneID = myOrder.OrderDetailsList[i].Phone.ID;
                         screen.newOrderDetails.CopyProperties(myOrder.OrderDetailsList[i]);
-                        orderBUS.UpdateOrderDetail(oldPhoneID, myOrder.OrderDetailsList[i]);
+                        OrderBUS.Instance.UpdateOrderDetail(oldPhoneID, myOrder.OrderDetailsList[i]);
                     }
                     else
                     {
@@ -137,7 +135,7 @@ namespace MyShop.Views
                 {
                     if (i < currentOrderDetailIndex)
                     {
-                        orderBUS.DeleteOrderDetail(myOrder.OrderDetailsList[i]);
+                        OrderBUS.Instance.DeleteOrderDetail(myOrder.OrderDetailsList[i]);
                     }
                     myOrder.OrderDetailsList.RemoveAt(i);
                 }
@@ -151,14 +149,14 @@ namespace MyShop.Views
 
             if (isNewOrder)
             {
-                orderBUS.AddOrder(myOrder);
+                OrderBUS.Instance.AddOrder(myOrder);
 
             }
 
             for (int i = currentOrderDetailIndex; i < myOrder.OrderDetailsList.Count; i++)
             {
                 myOrder.OrderDetailsList[i].OrderID = myOrder.ID;
-                orderBUS.AddOrderDetail(myOrder.OrderDetailsList[i]);
+                OrderBUS.Instance.AddOrderDetail(myOrder.OrderDetailsList[i]);
             }
             DialogResult = true;
 

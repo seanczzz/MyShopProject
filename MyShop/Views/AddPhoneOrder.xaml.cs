@@ -23,8 +23,6 @@ namespace MyShop.Views
     /// </summary>
     public partial class AddPhoneOrder : Window
     {
-        private PhoneBUS phoneBUS;
-        private CategoryBUS categoryBUS;
 
         BindingList<Category> categories;
         static List<Phone> phoneList;
@@ -34,20 +32,16 @@ namespace MyShop.Views
             InitializeComponent();
             newOrderDetails = (OrderDetails)orderDetails.Clone();
 
-
-            phoneBUS = new PhoneBUS();
-            categoryBUS = new CategoryBUS();
-
             if (phoneList == null)
             {
-                phoneList = phoneBUS.getAllPhones();
+                phoneList = PhoneBUS.Instance.getAllPhones();
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            categories = categoryBUS.getAllCategories();
+            categories = CategoryBUS.Instance.getAllCategories();
 
             categoryCombobox.ItemsSource = categories;
 

@@ -13,8 +13,22 @@ using System.Windows.Media.Imaging;
 
 namespace MyShop.DAO
 {
-    internal class PhoneDAO
+    public class PhoneDAO
     {
+        private static PhoneDAO? _instance = null;
+
+        public static PhoneDAO Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new PhoneDAO();
+                }
+
+                return _instance;
+            }
+        }
         public int getTotalPhone()
         {
             var sql = "select count(*) as total_phone from Phone";

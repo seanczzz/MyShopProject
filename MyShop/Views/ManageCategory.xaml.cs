@@ -27,11 +27,10 @@ namespace MyShop.Views
     public partial class ManageCategory : Page
     {
         CategoryViewModel categoryViewModel = new CategoryViewModel();
-        private CategoryBUS categoryBUS = new CategoryBUS();
         public ManageCategory()
         {
             InitializeComponent();
-            categoryViewModel.Categories = categoryBUS.getAllCategories();
+            categoryViewModel.Categories = CategoryBUS.Instance.getAllCategories();
             categoriesListView.ItemsSource = categoryViewModel.Categories;
         }
 
@@ -45,7 +44,7 @@ namespace MyShop.Views
 
                 try
                 {
-                    categoryBUS.InsertCategory(newCategory);
+                    CategoryBUS.Instance.InsertCategory(newCategory);
                     categoryViewModel.Categories.Add(newCategory);
                 }
                 catch (Exception ex)
@@ -66,7 +65,7 @@ namespace MyShop.Views
 
             if (wannaDelete == MessageBoxResult.Yes)
             {
-                categoryBUS.DeleteCategory(selectedCategory.ID);
+                CategoryBUS.Instance.DeleteCategory(selectedCategory.ID);
                 categoryViewModel.Categories.RemoveAt(index);
             }
         }
@@ -84,7 +83,7 @@ namespace MyShop.Views
                 selectedCategory.Avatar = info.Avatar;
                 try
                 {
-                    categoryBUS.UpdateCategory(selectedCategory);
+                    CategoryBUS.Instance.UpdateCategory(selectedCategory);
                 }
                 catch (Exception ex)
                 {

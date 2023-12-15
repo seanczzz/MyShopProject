@@ -10,28 +10,34 @@ using System.Threading.Tasks;
 
 namespace MyShop.BUS
 {
-    internal class PhoneBUS
+    public class PhoneBUS
     {
-        private PhoneDAO phoneDAO;
+        private static PhoneBUS? _instance = null;
 
-        public PhoneBUS()
+        public static PhoneBUS Instance
         {
-            phoneDAO = new PhoneDAO();
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new PhoneBUS();
+                }
 
+                return _instance;
+            }
         }
-
         public int GetTotalPhone()
         {
-            return phoneDAO.getTotalPhone();
+            return PhoneDAO.Instance.getTotalPhone();
         }
 
         public Phone getPhoneByID(int id)
         {
-            return phoneDAO.getPhoneByID(id);
+            return PhoneDAO.Instance.getPhoneByID(id);
         }
         public List<Phone> getTopFiveOutOfStock()
         {
-            return phoneDAO.getTopFiveOutOfStock();
+            return PhoneDAO.Instance.getTopFiveOutOfStock();
         }
 
         public void updatePhone(int ID, Phone phone)
@@ -47,24 +53,24 @@ namespace MyShop.BUS
             }
             else
             {
-                phoneDAO.updatePhone(ID, phone);
+                PhoneDAO.Instance.updatePhone(ID, phone);
             }
         }
 
         public List<Phone> getAllPhones()
         {
-            return phoneDAO.getAllPhones();
+            return PhoneDAO.Instance.getAllPhones();
         }
 
         public void AddPhone(Phone phone)
         {
             phone.UploadDate = DateTime.Now.Date;
-            phoneDAO.InsertNewPhone(phone);
+            PhoneDAO.Instance.InsertNewPhone(phone);
         }
 
         public void DeletePhone(int phoneID)
         {
-            phoneDAO.DeletePhone(phoneID);
+            PhoneDAO.Instance.DeletePhone(phoneID);
         }
     }
 
