@@ -295,5 +295,249 @@ namespace MyShop.DAO
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public List<BestSellingPhone> getBestSellingPhonesInWeek(DateTime src)
+        {
+            string sqlFormattedDate = src.ToString("yyyy-MM-dd");
+
+            var sql = "select TOP(5) p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar, sum(do.Quantity) as Quantity from Orders o join DetailOrder do on o.ID = do.OrderID join Phone p on p.ID = do.PhoneID where OrderDate between DATEADD(DAY, -7, @SelectedDate) and DATEADD(DAY, 1, @SelectedDate) group by p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar order by sum(do.Quantity) desc;";
+
+            var sqlParameter = new SqlParameter();
+            sqlParameter.ParameterName = "@SelectedDate";
+            sqlParameter.Value = sqlFormattedDate;
+
+            var command = new SqlCommand(sql, DB.Instance.Connection);
+            command.Parameters.Add(sqlParameter);
+
+            var reader = command.ExecuteReader();
+
+            List<BestSellingPhone> list = new List<BestSellingPhone>();
+            while (reader.Read())
+            {
+                var ID = (int)reader["ID"];
+                var PhoneName = (String)reader["PhoneName"];
+                var Manufacturer = (String)reader["Manufacturer"];
+
+                var SoldPrice = (int)(decimal)reader["SoldPrice"];
+                var BoughtPrice = (int)(decimal)reader["BoughtPrice"];
+                var Description = (String)reader["Description"];
+                var Stock = (int)reader["Stock"];
+                var Quantity = (int)reader["Quantity"];
+
+                BestSellingPhone phone = new BestSellingPhone()
+                {
+                    ID = ID,
+                    PhoneName = PhoneName,
+                    Manufacturer = Manufacturer,
+                    SoldPrice = SoldPrice,
+                    Stock = Stock,
+                    BoughtPrice = BoughtPrice,
+                    Description = Description,
+                    Quantity = Quantity
+                };
+                if (!reader["Avatar"].Equals(DBNull.Value))
+                {
+                    var byteAvatar = (byte[])reader["Avatar"];
+                    using (MemoryStream ms = new MemoryStream(byteAvatar))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = ms;
+                        image.EndInit();
+                        image.Freeze();
+                        phone.Avatar = image;
+                    }
+                }
+                if (phone.PhoneName != "")
+                    list.Add(phone);
+            }
+            reader.Close();
+            return list;
+        }
+
+        public List<BestSellingPhone> getBestSellingPhonesInMonth(DateTime src)
+        {
+            string sqlFormattedDate = src.ToString("yyyy-MM-dd");
+
+            var sql = "select TOP(5) p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar, sum(do.Quantity) as Quantity from Orders o join DetailOrder do on o.ID = do.OrderID join Phone p on p.ID = do.PhoneID where datepart(year, OrderDate) = datepart(year, @SelectedDate) and datepart(month, OrderDate) = datepart(month, @SelectedDate) group by p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar order by sum(do.Quantity) desc;";
+
+            var sqlParameter = new SqlParameter();
+            sqlParameter.ParameterName = "@SelectedDate";
+            sqlParameter.Value = sqlFormattedDate;
+
+            var command = new SqlCommand(sql, DB.Instance.Connection);
+            command.Parameters.Add(sqlParameter);
+
+            var reader = command.ExecuteReader();
+
+            List<BestSellingPhone> list = new List<BestSellingPhone>();
+
+            while (reader.Read())
+            {
+                var ID = (int)reader["ID"];
+                var PhoneName = (String)reader["PhoneName"];
+                var Manufacturer = (String)reader["Manufacturer"];
+                var SoldPrice = (int)(decimal)reader["SoldPrice"];
+                var BoughtPrice = (int)(decimal)reader["BoughtPrice"];
+                var Description = (String)reader["Description"];
+                var Stock = (int)reader["Stock"];
+                var Quantity = (int)reader["Quantity"];
+
+                BestSellingPhone phone = new BestSellingPhone()
+                {
+                    ID = ID,
+                    PhoneName = PhoneName,
+                    Manufacturer = Manufacturer,
+                    SoldPrice = SoldPrice,
+                    Stock = Stock,
+                    BoughtPrice = BoughtPrice,
+                    Description = Description,
+                    Quantity = Quantity
+                };
+                if (!reader["Avatar"].Equals(DBNull.Value))
+                {
+                    var byteAvatar = (byte[])reader["Avatar"];
+                    using (MemoryStream ms = new MemoryStream(byteAvatar))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = ms;
+                        image.EndInit();
+                        image.Freeze();
+                        phone.Avatar = image;
+                    }
+                }
+                if (phone.PhoneName != "")
+                    list.Add(phone);
+            }
+            reader.Close();
+            return list;
+        }
+
+        public List<BestSellingPhone> getBestSellingPhonesInYear(DateTime src)
+        {
+            string sqlFormattedDate = src.ToString("yyyy-MM-dd");
+
+            var sql = "select TOP(5) p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar, sum(do.Quantity) as Quantity from Orders o join DetailOrder do on o.ID = do.OrderID join Phone p on p.ID = do.PhoneID where datepart(year, OrderDate) = datepart(year, @SelectedDate) group by p.ID, p.PhoneName, p.Manufacturer, p.Stock, p.Description, p.BoughtPrice, p.SoldPrice, p.CatID, p.UploadDate, p.Avatar order by sum(do.Quantity) desc;";
+
+            var sqlParameter = new SqlParameter();
+            sqlParameter.ParameterName = "@SelectedDate";
+            sqlParameter.Value = sqlFormattedDate;
+
+            var command = new SqlCommand(sql, DB.Instance.Connection);
+            command.Parameters.Add(sqlParameter);
+
+            var reader = command.ExecuteReader();
+
+            List<BestSellingPhone> list = new List<BestSellingPhone>();
+            while (reader.Read())
+            {
+                var ID = (int)reader["ID"];
+                var PhoneName = (String)reader["PhoneName"];
+                var Manufacturer = (String)reader["Manufacturer"];
+                var SoldPrice = (int)(decimal)reader["SoldPrice"];
+                var BoughtPrice = (int)(decimal)reader["BoughtPrice"];
+                var Description = (String)reader["Description"];
+                var Stock = (int)reader["Stock"];
+                var Quantity = (int)reader["Quantity"];
+
+                BestSellingPhone phone = new BestSellingPhone()
+                {
+                    ID = ID,
+                    PhoneName = PhoneName,
+                    Manufacturer = Manufacturer,
+                    SoldPrice = SoldPrice,
+                    Stock = Stock,
+                    BoughtPrice = BoughtPrice,
+                    Description = Description,
+                    Quantity = Quantity
+                };
+                if (!reader["Avatar"].Equals(DBNull.Value))
+                {
+                    var byteAvatar = (byte[])reader["Avatar"];
+                    using (MemoryStream ms = new MemoryStream(byteAvatar))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = ms;
+                        image.EndInit();
+                        image.Freeze();
+                        phone.Avatar = image;
+                    }
+                }
+                if (phone.PhoneName != "")
+                    list.Add(phone);
+            }
+            reader.Close();
+            return list;
+        }
+
+        public List<Phone> getPhonesByCategory(int srcCategoryID)
+        {
+            var sql = "select * from Phone where CatID = @CategoryID";
+
+            var sqlParameter = new SqlParameter();
+            sqlParameter.ParameterName = "@CategoryID";
+            sqlParameter.Value = srcCategoryID;
+
+            var command = new SqlCommand(sql, DB.Instance.Connection);
+            command.Parameters.Add(sqlParameter);
+
+            var reader = command.ExecuteReader();
+
+            List<Phone> list = new List<Phone>();
+            while (reader.Read())
+            {
+                var ID = (int)reader["ID"];
+                var PhoneName = (String)reader["PhoneName"];
+                var Manufacturer = (String)reader["Manufacturer"];
+
+                var SoldPrice = (int)(decimal)reader["SoldPrice"];
+                var BoughtPrice = (int)(decimal)reader["BoughtPrice"];
+                var Description = (String)reader["Description"];
+                //var SoldPrice = (int)reader["SoldPrice"];
+                var Stock = (int)reader["Stock"];
+
+                Phone phone = new Phone()
+                {
+                    ID = ID,
+                    PhoneName = PhoneName,
+                    Manufacturer = Manufacturer,
+                    SoldPrice = SoldPrice,
+                    Stock = Stock,
+                    BoughtPrice = BoughtPrice,
+                    Description = Description
+                };
+                if (!reader["Avatar"].Equals(DBNull.Value))
+                {
+                    var byteAvatar = (byte[])reader["Avatar"];
+                    using (MemoryStream ms = new MemoryStream(byteAvatar))
+                    {
+                        var image = new BitmapImage();
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = ms;
+                        image.EndInit();
+                        image.Freeze();
+                        phone.Avatar = image;
+                    }
+                }
+                if (phone.PhoneName != "")
+                    list.Add(phone);
+            }
+            reader.Close();
+            return list;
+        }
     }
 }

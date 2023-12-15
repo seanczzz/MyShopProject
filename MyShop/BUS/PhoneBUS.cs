@@ -72,6 +72,26 @@ namespace MyShop.BUS
         {
             PhoneDAO.Instance.DeletePhone(phoneID);
         }
+
+        public List<BestSellingPhone> getBestSellingPhonesInWeek(DateTime src)
+        {
+            return PhoneDAO.Instance.getBestSellingPhonesInWeek(src);
+        }
+
+        public List<BestSellingPhone> getBestSellingPhonesInMonth(DateTime src)
+        {
+            return PhoneDAO.Instance.getBestSellingPhonesInMonth(src);
+        }
+
+        public List<BestSellingPhone> getBestSellingPhonesInYear(DateTime src)
+        {
+            return PhoneDAO.Instance.getBestSellingPhonesInYear(src);
+        }
+
+        public List<Phone> getPhonesByCategory(int srcCategoryID)
+        {
+            return PhoneDAO.Instance.getPhonesByCategory(srcCategoryID);
+        }
     }
 
 }
