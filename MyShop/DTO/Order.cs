@@ -12,7 +12,7 @@ namespace MyShop.DTO
         public enum OrderStatusEnum
         {
             Pending = 0,
-            Progress = 1,
+            InProgress = 1,
             Complete = 2
         }
 

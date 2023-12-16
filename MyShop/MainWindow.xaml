@@ -37,52 +37,52 @@
 
         <!--List of button-->
         <StackPanel Grid.Row="2" Margin="0,10,0,0">
-            <Button x:Name="dashboardButton" Click="dashboardButton_Click"  Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5" 
+            <Button x:Name="dashboardButton" Click="dashboardButton_Click"  Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5" 
                     Height="60">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Home" Width="25" Height="25"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="18">Dashboard</TextBlock>
+                        <materialDesign:PackIcon Foreground="Black" Kind="Home" Width="25" Height="25"/>
+                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Dashboard</TextBlock>
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="categoriesButton" Click="categoriesButton_Click"  Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5"
+            <Button x:Name="categoriesButton" Click="categoriesButton_Click"  Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="60">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Category" Width="25" Height="25"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="18">Manage categories</TextBlock>
+                        <materialDesign:PackIcon Foreground="Black" Kind="Category" Width="25" Height="25"/>
+                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Manage categories</TextBlock>
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="productButton" Click="productButton_Click"  Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5"
+            <Button x:Name="productButton" Click="productButton_Click"  Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="60">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Reproduction" Width="25" Height="25"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="18">Manage products</TextBlock>
+                        <materialDesign:PackIcon Foreground="Black" Kind="Reproduction" Width="25" Height="25"/>
+                        <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Manage products</TextBlock>
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button x:Name="orderButton" Click="orderButton_Click"  Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5"
+            <Button x:Name="orderButton" Click="orderButton_Click"  Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="60">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Receipt" Width="25" Height="25" />
-                    <TextBlock VerticalAlignment="Center" FontSize="18">Manage orders</TextBlock>
+                    <materialDesign:PackIcon Foreground="Black" Kind="Receipt" Width="25" Height="25" />
+                    <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Manage orders</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="statsButton" Click="statsButton_Click"  Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5"
+            <Button x:Name="statsButton" Click="statsButton_Click"  Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="60">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="BarChart" Width="25" Height="25" />
-                    <TextBlock VerticalAlignment="Center" FontSize="18">Statistic</TextBlock>
+                    <materialDesign:PackIcon Foreground="Black" Kind="BarChart" Width="25" Height="25" />
+                    <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Statistic</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="configButton" Click="configButton_Click" Background="{DynamicResource MyPinkGradient}" materialDesign:ButtonAssist.CornerRadius="5"
+            <Button x:Name="configButton" Click="configButton_Click" Background="{DynamicResource MyGalaxyGradient}" materialDesign:ButtonAssist.CornerRadius="5"
                     Height="60">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Gear" Width="25" Height="25"/>
-                    <TextBlock VerticalAlignment="Center" FontSize="18">Configuration</TextBlock>
+                    <materialDesign:PackIcon Foreground="Black" Kind="Gear" Width="25" Height="25"/>
+                    <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">Configuration</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

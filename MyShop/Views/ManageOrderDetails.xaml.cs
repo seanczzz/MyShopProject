@@ -35,7 +35,7 @@ namespace MyShop.Views
         {
             InitializeComponent();
             myOrder = (Order)order.Clone();
-            
+
             orderDetails = new OrderDetails();
             orderDetails.OrderID = myOrder.ID;
 
@@ -57,7 +57,7 @@ namespace MyShop.Views
             //    //DeleteButton.IsEnabled = false;
             //}
 
-            
+
             if (myOrder.OrderDetailsList == null)
                 myOrder.OrderDetailsList = new BindingList<OrderDetails>();
 
@@ -69,7 +69,8 @@ namespace MyShop.Views
         {
             if (myOrder.OrderDetailsList == null) return false;
 
-            foreach (OrderDetails orderDetails in myOrder.OrderDetailsList) {
+            foreach (OrderDetails orderDetails in myOrder.OrderDetailsList)
+            {
                 if (orderDetails.Phone.ID == phone.ID) return true;
             }
 
@@ -84,12 +85,12 @@ namespace MyShop.Views
             if (screen.ShowDialog() == true)
             {
                 if (!IsAlreadyInPhoneList(screen.newOrderDetails.Phone))
-                {                   
+                {
                     myOrder.OrderDetailsList.Add(screen.newOrderDetails);
                 }
                 else
                 {
-                    MessageBox.Show($"{screen.newOrderDetails.Phone.PhoneName}'s already exists in detail order.\nChoose 'Update' instead", "Duplicate phone", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{screen.newOrderDetails.Phone.PhoneName} is already existed in detail order.\nChoose 'Update' instead", "Duplicate phone", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 //Reload();
             }
@@ -118,7 +119,7 @@ namespace MyShop.Views
                     }
                     else
                     {
-                        MessageBox.Show($"{screen.newOrderDetails.Phone.PhoneName}'s already exists in detail order.\nPlease choose another phone", "Duplicate phone", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{screen.newOrderDetails.Phone.PhoneName} is already existed in detail order.\nPlease choose another phone", "Duplicate phone", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }

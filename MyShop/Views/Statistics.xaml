@@ -75,7 +75,7 @@
                                 <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="Green" />
                             </Style.Resources>
                             <Style.Setters>
-                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Background" Value="Black"/>
                             </Style.Setters>
                         </Style>
                     </DatePicker.CalendarStyle>
@@ -98,17 +98,17 @@
             <Grid Margin="10">
                 <StackPanel>
                     <TextBlock Text="Revenue"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <TextBlock x:Name="TotalRevenueTextBlock" 
                                 Text="{Binding}"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
 
                 </StackPanel>
                 <materialDesign:PackIcon Kind="Store" Width="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"
+                        HorizontalAlignment="Right" Foreground="Black"
                         Height="50"/>
 
             </Grid>
@@ -128,19 +128,19 @@
             <Grid Margin="10">
                 <StackPanel>
                     <TextBlock Text="Profit"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <TextBlock x:Name="TotalProfitTextBlock" 
                                 Text="{Binding}"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
 
 
                 </StackPanel>
 
                 <materialDesign:PackIcon Kind="Dollar" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"/>
+                        HorizontalAlignment="Right" Foreground="Black"/>
 
             </Grid>
 
@@ -160,17 +160,17 @@
             <Grid Margin="10">
                 <StackPanel>
                     <TextBlock Text="Orders"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <TextBlock x:Name="TotalOrdersTextBlock" 
                                 Text="{Binding Count}"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
                 </StackPanel>
 
                 <materialDesign:PackIcon Kind="Receipt" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"/>
+                        HorizontalAlignment="Right" Foreground="Black"/>
             </Grid>
         </materialDesign:Card>
 
@@ -188,12 +188,16 @@
             <TabControl Name="chartTabControl" SelectionChanged="chartTabControl_SelectionChanged" SelectedIndex="{Binding tabSelectedIndex}">
                 <TabItem Header="Revenue">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="219*"/>
+                            <ColumnDefinition Width="136*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1.5*"/>
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
 
-                        <DockPanel>
+                        <DockPanel Grid.ColumnSpan="2">
                             <ComboBox Name="revenueCombobox" HorizontalAlignment="Right"
                                 Height="30"
                                 SelectedIndex="{Binding figureIndex}"
@@ -209,8 +213,7 @@
                             </ComboBox>
                         </DockPanel>
 
-                        <lvc:CartesianChart Name="revenueChart"
-                                        Grid.Row="1">
+                        <lvc:CartesianChart Name="revenueChart" Grid.ColumnSpan="2" Margin="0,25,0,0" Grid.RowSpan="2">
 
                             <lvc:CartesianChart.Series>
                                 <lvc:ColumnSeries Title="Maria" Values="3" />
@@ -218,7 +221,7 @@
                                 <lvc:ColumnSeries Title="Maria" Values="5" />
                                 <lvc:ColumnSeries Title="Maria" Values="6" />
                             </lvc:CartesianChart.Series>
-                            
+
                         </lvc:CartesianChart>
                     </Grid>
                 </TabItem>
@@ -255,7 +258,7 @@
                                 <lvc:ColumnSeries Title="Maria" Values="6" />
                             </lvc:CartesianChart.Series>
 
-                            
+
                         </lvc:CartesianChart>
                     </Grid>
                 </TabItem>

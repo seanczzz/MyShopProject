@@ -34,4 +34,17 @@
         <GradientStop Color="#157d74" Offset="0"/>
         <GradientStop Color="#1ace6e" Offset="1.0"/>
     </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyGalaxyGradient">
+        <GradientStop Color="#FDFFCD" Offset="1.0"/>
+        <GradientStop Color="#9FA6FF" Offset="0"/>
+        <GradientStop Color="#ecacc4" Offset="1.0"/>
+        <GradientStop Color="#fcee21" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyYellowGradientAdvance">
+        <GradientStop Color="#fcee21" Offset="1.0"/>
+        <GradientStop Color="#95f4e2" Offset="1.0"/>
+        <GradientStop Color="#008381" Offset="0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

@@ -109,9 +109,9 @@ namespace MyShop
             foreach (var button in buttons)
             {
                 
-                button.Background = (Brush)Application.Current.Resources["MyPinkGradient"];
+                button.Background = (Brush)Application.Current.Resources["MyGalaxyGradient"];
             }
-            b.Background = (Brush)Application.Current.Resources["MyRedGradient"];
+            b.Background = (Brush)Application.Current.Resources["MyYellowGradientAdvance"];
         }
 
         private void dashboardButton_Click(object sender, RoutedEventArgs e)
