@@ -11,8 +11,8 @@
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="MyBlueGradient">
-        <GradientStop Color="#29abe2" Offset="0"/>
-        <GradientStop Color="#95f4e2" Offset="1.0"/>
+        <GradientStop Color="#E5CCC3" Offset="0"/>
+        <GradientStop Color="#6047DF" Offset="1.0"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="MyRedGradient">
@@ -43,8 +43,17 @@
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="MyYellowGradientAdvance">
-        <GradientStop Color="#fcee21" Offset="1.0"/>
-        <GradientStop Color="#95f4e2" Offset="1.0"/>
-        <GradientStop Color="#008381" Offset="0"/>
+        <GradientStop Color="#006F85" Offset="1.0"/>
+        <GradientStop Color="#95f4e2" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyBlueZodiacGradient">
+        <GradientStop Color="#353A5F" Offset="1.5"/>
+        <GradientStop Color="#9EBAF3" Offset="0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyMintGradient">
+        <GradientStop Color="#38A2D6" Offset="0"/>
+        <GradientStop Color="#551138" Offset="1.2"/>
     </LinearGradientBrush>
 </ResourceDictionary>

@@ -22,9 +22,9 @@
                     <StackPanel Orientation="Horizontal" Margin="0,20">
                         <Button Name="AddButton" Click="AddButton_Click" 
                             materialDesign:ButtonAssist.CornerRadius="5"
-                            Background="DeepPink"
+                            Background="DarkSlateGray"
                             materialDesign:ShadowAssist.ShadowEdges="All"
-                            BorderBrush="DeepPink"
+                            BorderBrush="Green"
                             Margin="5">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
@@ -61,7 +61,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                        <TextBlock Text="From" VerticalAlignment="Center" FontWeight="Bold" Foreground="MediumPurple" Margin="10,0"/>
+                        <TextBlock Text="From" VerticalAlignment="Center" FontWeight="Bold" Foreground="Gray" Margin="10,0"/>
                         <DatePicker Name="FromDatePicker"  IsTodayHighlighted="True" AutomationProperties.IsOffscreenBehavior="Onscreen">
                             <DatePicker.CalendarStyle>
                                 <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
@@ -75,7 +75,7 @@
                                 </Style>
                             </DatePicker.CalendarStyle>
                         </DatePicker>
-                        <TextBlock Text="To" VerticalAlignment="Center" FontWeight="Bold" Foreground="MediumPurple" Margin="10,0"/>
+                        <TextBlock Text="To" VerticalAlignment="Center" FontWeight="Bold" Foreground="Gray" Margin="10,0"/>
                         <DatePicker Name="ToDatePicker" IsTodayHighlighted="True">
                             <DatePicker.CalendarStyle>
                                 <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
