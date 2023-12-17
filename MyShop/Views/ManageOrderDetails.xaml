@@ -95,9 +95,9 @@
 
                                 <Button Name="ChoosePhoneButton" Click="ChoosePhoneButton_Click" 
                             materialDesign:ButtonAssist.CornerRadius="5"
-                            Background="DeepPink"
+                            Background="DarkSlateGray"
                             materialDesign:ShadowAssist.ShadowEdges="All"
-                            BorderBrush="DeepPink"
+                            BorderBrush="Green"
                             Margin="5">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
@@ -206,9 +206,9 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right"  Margin="0,5,0,0">
                     <Button Name="SaveButton" Click="SaveButton_Click" 
                             materialDesign:ButtonAssist.CornerRadius="5"
-                            Background="DeepPink"
+                            Background="DarkSlateGray"
                             materialDesign:ShadowAssist.ShadowEdges="All"
-                            BorderBrush="DeepPink"
+                            BorderBrush="Green"
                             >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">

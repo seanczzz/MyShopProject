@@ -11,7 +11,8 @@
     <None Remove="Assets\Images\background_1.jpg" />
     <None Remove="Assets\Images\home.png" />
     <None Remove="Assets\Images\logo.png" />
-    <None Remove="Assets\Images\logo_edited.png" />
+    <None Remove="Assets\Images\logo_new1.png" />
+    <None Remove="Assets\Images\logo_store.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +25,7 @@
     <Content Include="Assets\Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Images\logo_edited.png">
+    <Content Include="Assets\Images\logo_store.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -89,7 +89,7 @@
                 Grid.Row="1"
                 Width="200"
                 Height="100"
-                Background="{DynamicResource MyPurpleGradient}"
+                Background="{DynamicResource MyMintGradient}"
                 VerticalAlignment="Top"
                 UniformCornerRadius="10"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -107,7 +107,7 @@
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
 
                 </StackPanel>
-                <materialDesign:PackIcon Kind="Store" Width="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
+                <materialDesign:PackIcon Kind="Dollar" Width="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
                         HorizontalAlignment="Right" Foreground="Black"
                         Height="50"/>
 
@@ -139,7 +139,7 @@
 
                 </StackPanel>
 
-                <materialDesign:PackIcon Kind="Dollar" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
+                <materialDesign:PackIcon Kind="Money" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
                         HorizontalAlignment="Right" Foreground="Black"/>
 
             </Grid>
@@ -151,7 +151,7 @@
                 Grid.Column="2"
                 Width="200"
                 Height="100"
-                Background="{DynamicResource MyYellowGradient}"
+                Background="{DynamicResource MyBlueZodiacGradient}"
                 VerticalAlignment="Top"
                 UniformCornerRadius="10"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"

@@ -18,7 +18,7 @@
                 <Button x:Name="ImportButton"
                     Click="ImportButton_Click"
                     Margin="0 0 10 0"
-                    Background="DeepPink"
+                    Background="DarkSlateGray"
                     materialDesign:ButtonAssist.CornerRadius="5">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -30,7 +30,7 @@
                 <Button Name="AddButton"
                     Click="AddMenuItem_Click"
                     Margin="0 0 10 0"
-                    Background="DeepPink"
+                    Background="DarkSlateGray"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     >
                     <Button.Content>
@@ -126,9 +126,9 @@
                                  materialDesign:ShadowAssist.ShadowDepth="Depth0"
                                  Grid.Column="0" Margin="0,0,-110,0">
                             <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="From" VerticalAlignment="Center" FontWeight="Bold" Foreground="MediumPurple" Margin="10,0"/>
+                                <TextBlock Text="From" VerticalAlignment="Center" FontWeight="Bold" Foreground="Gray" Margin="10,0"/>
                                 <TextBox Width="45" Name="fromTextbox" Height="30" Padding="0 6 0 0" Text="0" Foreground="Black" HorizontalAlignment="Center"/>
-                                <TextBlock Text="To" VerticalAlignment="Center" FontWeight="Bold" Foreground="MediumPurple" Margin="10,0"/>
+                                <TextBlock Text="To" VerticalAlignment="Center" FontWeight="Bold" Foreground="Gray" Margin="10,0"/>
                                 <TextBox Width="45" Name="toTextbox" Height="30" Padding="0 6 0 0" Text="0" Foreground="Black" HorizontalAlignment="Center"/>
 
                                 <Button Name="FilterButton" Click="FilterButton_Click" Margin="5 0 0 0"

@@ -9,7 +9,7 @@
       Title="Dashboard"
       Loaded="Page_Loaded"
       >
-      
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -28,7 +28,7 @@
                 Grid.Row="1"
                 Width="200"
                 Height="100"
-                Background="{DynamicResource MyPurpleGradient}"
+                Background="{DynamicResource MyMintGradient}"
                 VerticalAlignment="Top"
                 UniformCornerRadius="10"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -37,7 +37,7 @@
             <Grid Margin="10">
                 <StackPanel>
                     <TextBlock Text="Total phones"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <!-- binding -->
@@ -48,8 +48,8 @@
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
 
                 </StackPanel>
-                <materialDesign:PackIcon Kind="Cellphone" Width="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"
+                <materialDesign:PackIcon Kind="CellphoneCheck" Width="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right" Foreground="Black"
                         Height="50"/>
 
             </Grid>
@@ -70,7 +70,7 @@
             <Grid Margin="10">
                 <StackPanel>
                     <TextBlock Text="Week Orders"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <!-- binding -->
@@ -84,7 +84,7 @@
                 </StackPanel>
 
                 <materialDesign:PackIcon Kind="Receipt" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"/>
+                        HorizontalAlignment="Right" Foreground="Black"/>
 
             </Grid>
 
@@ -95,16 +95,19 @@
                 Grid.Column="2"
                 Width="200"
                 Height="100"
-                Background="{DynamicResource MyYellowGradient}"
+                Background="{DynamicResource MyBlueZodiacGradient}"
                 VerticalAlignment="Top"
                 UniformCornerRadius="10"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 HorizontalAlignment="Center">
 
-            <Grid Margin="20">
+            <Grid Margin="10">
                 <StackPanel>
+
+                    <!-- binding -->
+
                     <TextBlock Text="Month Orders"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
 
                     <!-- binding -->
@@ -118,14 +121,14 @@
                 </StackPanel>
 
                 <materialDesign:PackIcon Kind="Receipt" Width="50" Height="50" Margin="0, 0, 10, 10" VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right" Foreground="Azure"/>
+                        HorizontalAlignment="Right" Foreground="Black"/>
 
             </Grid>
 
         </materialDesign:Card>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
-            <TextBlock Text="Top 5 phone (nearly) out of stock" Padding="10 0 0 0" FontSize="20" Background="MediumPurple" Foreground="White"/>
+            <TextBlock Text="Top 5 phones (nearly) out of stock" Padding="10 0 0 0" FontSize="20" Background="MediumPurple" Foreground="White"/>
             <DataGrid Grid.Row="0" x:Name="PhoneDataGrid" 
                     AutoGenerateColumns="False" ColumnHeaderHeight="30" HeadersVisibility="Column" 
                     RowHeaderWidth="100" SelectionChanged="PhoneDataGrid_SelectionChanged" 

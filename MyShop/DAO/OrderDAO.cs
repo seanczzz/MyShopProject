@@ -186,11 +186,10 @@ namespace MyShop.DAO
 
         public void AddOrderDetail(OrderDetails orderDetails)
         {
-            string sql = @"INSERT INTO DetailOrder(DetailOrderID, OrderID, PhoneID, Quantity) 
-                            VALUES (@DetailOrderID, @OrderID, @PhoneID, @Quantity)";
+            string sql = @"INSERT INTO DetailOrder(OrderID, PhoneID, Quantity) 
+                            VALUES (@OrderID, @PhoneID, @Quantity)";
             SqlCommand sqlCommand = new SqlCommand(sql, DB.Instance.Connection);
 
-            sqlCommand.Parameters.AddWithValue("@DetailOrderID", 1);
             sqlCommand.Parameters.AddWithValue("@OrderID", orderDetails.OrderID);
             sqlCommand.Parameters.AddWithValue("@PhoneID", orderDetails.Phone.ID);
             sqlCommand.Parameters.AddWithValue("@Quantity", orderDetails.Quantity);
