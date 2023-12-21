@@ -1,0 +1,10 @@
+﻿<?xml version='1.0'?>
+<Obfuscator>
+	<Var name="InPath" value="." />
+	<Var name="OutPath" value=".\Obfuscator_Output" />
+	<Var name="KeepPublicApi" value="false" />
+	<Var name="HidePrivateApi" value="true" />
+
+	<AssemblySearchPath path="C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.14" />
+	<Module file="$(InPath)\WinFormsApp6.dll" />
+</Obfuscator>
